@@ -9,9 +9,14 @@ gulp.task('sass', function() {
         .pipe(autoprefixer())
         .pipe(gulp.dest('./source/css'));
 });
+gulp.task('serviceWorker', function() {
+    return gulp.src('./source/js/sw.js')
+        .pipe(gulp.dest('./source'));
+});
 
 // 实时编译
-gulp.task('default', ['sass'], function() {
+gulp.task('default', ['sass', 'serviceWorker'], function() {
     gulp.watch('./source/scss/_partial/*.scss', ['sass']);
     gulp.watch('./source/scss/*.scss', ['sass']);
+    gulp.watch('./source/js/*', ['serviceWorker']);
 });
